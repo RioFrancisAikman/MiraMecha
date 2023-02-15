@@ -6,16 +6,19 @@ public class PlayerScript : MonoBehaviour
 {
     private float speed;
 
-    public Transform fireSpawnPoint;
+    public Transform shootingSpawnPoint;
     public GameObject myWaterObjectToSpawn;
 
     public Animator myAnimator;
     public GameObject mySprite;
 
+    public float waterTank;
+
     // Start is called before the first frame update
     void Start()
     {
         speed = 3.0f;
+        waterTank = 10f;
     }
 
     // Update is called once per frame
@@ -52,6 +55,29 @@ public class PlayerScript : MonoBehaviour
         {
             //not moving to the right
             myAnimator.SetBool("Running", false);
+        }
+
+
+        if (Input.GetButtonDown("WaterShot"))
+        {
+            if (waterTank >= 1.0f)
+            {
+
+                Debug.Log("You shot water");
+                GameObject WaterBall = Instantiate(myWaterObjectToSpawn, shootingSpawnPoint.position, Quaternion.identity) as GameObject;
+                Rigidbody r = WaterBall.GetComponent<Rigidbody>();
+
+                
+                //  Debug.Break();
+                r.AddRelativeForce(Vector3.right * 150);
+                
+            }
+            else
+            {
+                //water tank is empty
+                Debug.Log("No more water!");
+
+            }
         }
     }
 }

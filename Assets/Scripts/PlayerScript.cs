@@ -6,8 +6,11 @@ public class PlayerScript : MonoBehaviour
 {
     private float speed;
 
-    public Transform shootingSpawnPoint;
-    public GameObject myWaterObjectToSpawn;
+    public Transform shootingRightSpawnPoint;
+    public GameObject myWater1ObjectToSpawn;
+
+    public Transform shootingLeftSpawnPoint;
+    public GameObject myWater2ObjectToSpawn;
 
     public Animator myAnimator;
     public GameObject mySprite;
@@ -62,15 +65,30 @@ public class PlayerScript : MonoBehaviour
         {
             if (waterTank >= 1.0f)
             {
+                if (horizontalInput > 0)
+                {
+                    Debug.Log("You shot water");
+                    GameObject WaterBall = Instantiate(myWater1ObjectToSpawn, shootingRightSpawnPoint.position, Quaternion.identity) as GameObject;
+                    Rigidbody r = WaterBall.GetComponent<Rigidbody>();
 
-                Debug.Log("You shot water");
-                GameObject WaterBall = Instantiate(myWaterObjectToSpawn, shootingSpawnPoint.position, Quaternion.identity) as GameObject;
-                Rigidbody r = WaterBall.GetComponent<Rigidbody>();
 
-                
-                //  Debug.Break();
-                r.AddRelativeForce(Vector3.right * 150);
-                
+                    //  Debug.Break();
+                    r.AddRelativeForce(Vector3.right * 150);
+                }
+
+                if (horizontalInput < 0)
+                {
+                    Debug.Log("You shot water");
+                    GameObject WaterBall = Instantiate(myWater2ObjectToSpawn, shootingLeftSpawnPoint.position, Quaternion.identity) as GameObject;
+                    Rigidbody r = WaterBall.GetComponent<Rigidbody>();
+
+
+                    //  Debug.Break();
+                    r.AddRelativeForce(Vector3.left * 150);
+                   
+                }
+
+
             }
             else
             {

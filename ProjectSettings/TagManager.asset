@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - WaterBall
+  - Grounded
+  - Ground
   layers:
   - Default
   - TransparentFX

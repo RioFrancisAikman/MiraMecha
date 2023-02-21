@@ -7,60 +7,28 @@ public class PlayerJump : MonoBehaviour
     Rigidbody rb;
     public Vector3 boxSize;
     public float maxDistance;
-    public float jumpforce = 0.5f;
-    public bool isGrounded;
-
-    [SerializeField]
-    private int maxJumps = 2;
-    private int _jumpsLeft;
-    private Rigidbody _rigidbody;
-    private Transform groundCheck;
-
-    [SerializeField]
-    private float groundCheckRadius = 0.05f;
-
-    [SerializeField]
-    private LayerMask collisionMask;
-
-
-
+    public float jumpforce = 5.0f;
+    public bool isOnGround;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        isGrounded = true;
-
-        _jumpsLeft = maxJumps;
-
-        _rigidbody = GetComponent<Rigidbody>();
+        isOnGround = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        var jumpInput = Input.GetKeyDown(KeyCode.Space);
 
-        if ( _rigidbody.velocity.y <= 0)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            _jumpsLeft = maxJumps;
+            rb.AddForce(transform.up * jumpforce * 10.5f, ForceMode.Impulse);
+            isOnGround = false;
         }
 
-
-
-        if(jumpInput && _jumpsLeft > 0)
-        {
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, y: jumpforce);
-            _jumpsLeft -= 1;
-            isGrounded=false;
-        }
-
-
-       
-       
     }
 
 
 }
-
 

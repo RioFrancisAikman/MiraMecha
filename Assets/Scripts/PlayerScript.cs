@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     private float speed;
-    public float health;
+    
 
     public Transform shootingRightSpawnPoint;
     public GameObject myWater1ObjectToSpawn;
@@ -22,7 +22,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         speed = 3.0f;
-        health = 30.0f;
+        
         waterTank = 10f;
     }
 

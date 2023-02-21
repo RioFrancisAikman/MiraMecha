@@ -7,7 +7,7 @@ public class PlayerJump : MonoBehaviour
     Rigidbody rb;
     public Vector3 boxSize;
     public float maxDistance;
-    public float jumpforce = 2.5f;
+    public float jumpforce = 0.5f;
     public bool isGrounded;
 
     [SerializeField]
@@ -56,10 +56,7 @@ public class PlayerJump : MonoBehaviour
         }
 
 
-        if (isGrounded == false)
-        {
-            jumpforce = 0f;
-        }
+       
        
     }
 

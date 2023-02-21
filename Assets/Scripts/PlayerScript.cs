@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     private float speed;
+    public float health;
 
     public Transform shootingRightSpawnPoint;
     public GameObject myWater1ObjectToSpawn;
@@ -21,6 +22,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         speed = 3.0f;
+        health = 30.0f;
         waterTank = 10f;
     }
 
@@ -73,7 +75,7 @@ public class PlayerScript : MonoBehaviour
 
 
                     //  Debug.Break();
-                    r.AddRelativeForce(Vector3.right * 150);
+                    r.AddRelativeForce(Vector3.right * 175);
                 }
 
                 if (horizontalInput < 0)
@@ -84,7 +86,7 @@ public class PlayerScript : MonoBehaviour
 
 
                     //  Debug.Break();
-                    r.AddRelativeForce(Vector3.left * 150);
+                    r.AddRelativeForce(Vector3.left * 175);
                    
                 }
 

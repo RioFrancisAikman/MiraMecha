@@ -18,18 +18,24 @@ public class PlayerScript : MonoBehaviour
 
     public float waterTank;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
         speed = 3.0f;
         
         waterTank = 10f;
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         speed = 3.0f;
+       
+
 
         //Player Movement Code
         //read the input of the horizontal and vertical, store them in a variable

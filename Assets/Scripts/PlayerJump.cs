@@ -9,12 +9,18 @@ public class PlayerJump : MonoBehaviour
     public float maxDistance;
     public float jumpforce = 5.0f;
     public bool isOnGround;
+    public Animator myAnimator;
+    private bool doubleJump;
+
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         isOnGround = true;
+        
     }
 
     // Update is called once per frame
@@ -23,12 +29,20 @@ public class PlayerJump : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+
+            myAnimator.SetBool("Jumping", true);
             rb.AddForce(transform.up * jumpforce * 10.5f, ForceMode.Impulse);
-            isOnGround = false;
+           isOnGround = false;
+        }
+
+        if (isOnGround == false)
+        {
+            
         }
 
     }
 
+    
 
 }
 

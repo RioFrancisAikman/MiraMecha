@@ -17,6 +17,8 @@ public class EnemyScript : MonoBehaviour
     public Material on, off;
     Renderer r;
 
+    public GameObject myEnemySprite;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,14 +48,14 @@ public class EnemyScript : MonoBehaviour
                 {
                     //Enemy moves left
                     transform.Translate(new Vector3(1 * Time.deltaTime, 0, 0 * Time.deltaTime));
-                    transform.localScale = new Vector3(-1, 1, 1);
+                    myEnemySprite.transform.localScale = new Vector3(-1.75f, 1.75f, 1.75f);
 
                 }
                 else if (forwardTimer <= 20.0f)
                 {
                     //Enemy moves right
                     transform.Translate(new Vector3(-1 * Time.deltaTime, 0, 0 * Time.deltaTime));
-                    transform.localScale = new Vector3(1, 1, 1);
+                    myEnemySprite.transform.localScale = new Vector3(1.75f, 1.75f, 1.75f);
 
                 }
                 else

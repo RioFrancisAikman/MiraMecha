@@ -46,14 +46,14 @@ public class EnemyScript : MonoBehaviour
                 {
                     //Enemy moves left
                     transform.Translate(new Vector3(1 * Time.deltaTime, 0, 0 * Time.deltaTime));
-
+                    transform.localScale = new Vector3(-1, 1, 1);
 
                 }
                 else if (forwardTimer <= 20.0f)
                 {
                     //Enemy moves right
                     transform.Translate(new Vector3(-1 * Time.deltaTime, 0, 0 * Time.deltaTime));
-
+                    transform.localScale = new Vector3(1, 1, 1);
 
                 }
                 else

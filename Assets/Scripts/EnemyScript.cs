@@ -14,10 +14,17 @@ public class EnemyScript : MonoBehaviour
 
     public float forwardTimer;
 
+    public float shootTimer;
+
     public Material on, off;
     Renderer r;
 
     public GameObject myEnemySprite;
+
+    public Transform shooting1SpawnPoint;
+    public GameObject myEnemy1ObjectToSpawn;
+    public Transform shooting2SpawnPoint;
+    public GameObject myEnemy2ObjectToSpawn;
 
     // Start is called before the first frame update
     void Start()
@@ -80,7 +87,8 @@ public class EnemyScript : MonoBehaviour
                 // Enemy becomes angry
                 r.material = on;
 
-                
+
+                shootTimer += Time.deltaTime;
 
                 if (volumeToMonitor.playerInsideVolume == false)
                 {
@@ -90,9 +98,47 @@ public class EnemyScript : MonoBehaviour
 
                 }
 
+               
+
+                if (shootTimer >= 3.0f)
+                {
+
+                    if (forwardTimer >= 10.0f)
+                    {
+                        GameObject EnemyShot = Instantiate(myEnemy1ObjectToSpawn, shooting1SpawnPoint.position, Quaternion.identity) as GameObject;
+                        Rigidbody sr = EnemyShot.GetComponent<Rigidbody>();
+
+                        //  Debug.Break();
+                        sr.AddRelativeForce(Vector3.left * 150);
+
+                        shootTimer = 0;
+                    }
+                    else if (forwardTimer >= 20.0f)
+                    {
+                        GameObject EnemyShot = Instantiate(myEnemy2ObjectToSpawn, shooting2SpawnPoint.position, Quaternion.identity) as GameObject;
+                        Rigidbody sr = EnemyShot.GetComponent<Rigidbody>();
+
+                        //  Debug.Break();
+                        sr.AddRelativeForce(Vector3.right * 150);
+
+                        shootTimer = 0;
+                    }
+
+                   
+                }
+
                 break;
 
+           
 
+                
+
+               
+
+
+              
+
+               
         }
     }
 }

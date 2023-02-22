@@ -9,6 +9,8 @@ public class EnemyScript : MonoBehaviour
 
     public GameObject player;
     public float speed = 1;
+    public float health;
+    public float damage;
 
     public EnemyDetection volumeToMonitor;
 
@@ -32,6 +34,8 @@ public class EnemyScript : MonoBehaviour
         r = GetComponent<Renderer>();
 
         speed = 2.0f;
+        health = 6.0f;
+        damage = 1.0f;
 
         player = GameObject.FindGameObjectWithTag("Player");
 
@@ -41,6 +45,12 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+
         switch (enemyActStates)
         {
             case EnemyStates.walking:
@@ -100,7 +110,7 @@ public class EnemyScript : MonoBehaviour
 
                
 
-                if (shootTimer >= 3.0f)
+              /*  if (shootTimer >= 5.0f)
                 {
 
                     if (forwardTimer >= 10.0f)
@@ -126,6 +136,7 @@ public class EnemyScript : MonoBehaviour
 
                    
                 }
+              */
 
                 break;
 
@@ -139,6 +150,17 @@ public class EnemyScript : MonoBehaviour
               
 
                
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "WaterBall")
+        {
+            //Enemy takes damage
+            health = health - damage;
+            Debug.Log("You hit enemy");
+           
         }
     }
 }

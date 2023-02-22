@@ -30,7 +30,7 @@ public class PlayerJump : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
 
-            myAnimator.SetBool("Jumping", true);
+           // myAnimator.SetBool("Jumping", true);
             rb.AddForce(transform.up * jumpforce * 10.5f, ForceMode.Impulse);
            isOnGround = false;
         }

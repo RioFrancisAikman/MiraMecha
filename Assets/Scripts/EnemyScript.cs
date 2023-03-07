@@ -89,7 +89,7 @@ public class EnemyScript : MonoBehaviour
                 forwardTimer += Time.deltaTime;
 
 
-                if (forwardTimer <= 10.0f)
+                if (forwardTimer <= 5.0f)
                 {
                     //Enemy moves right
                     transform.Translate(new Vector3(1 * Time.deltaTime, 0, 0));
@@ -100,7 +100,7 @@ public class EnemyScript : MonoBehaviour
                     facingLeft = false;
 
                 }
-                else if (forwardTimer <= 20.0f)
+                else if (forwardTimer <= 10.0f)
                 {
                     //Enemy moves left
                     transform.Translate(new Vector3(-1 * Time.deltaTime, 0, 0));
@@ -110,7 +110,7 @@ public class EnemyScript : MonoBehaviour
                     facingRight = false;
 
                 }
-                else if (forwardTimer >= 20.0f)
+                else if (forwardTimer >= 10.0f)
                 {
                     // resets timer
                     forwardTimer = 0;
@@ -144,6 +144,7 @@ public class EnemyScript : MonoBehaviour
                     transform.Translate(Vector2.left * speed * Time.deltaTime);
                 }
                 */
+
 
                 if (upTimer <= 1.5f)
                 {

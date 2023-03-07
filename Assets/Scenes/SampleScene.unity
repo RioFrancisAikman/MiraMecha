@@ -640,7 +640,7 @@ Transform:
   m_GameObject: {fileID: 713883640}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 2070971698}
   m_RootOrder: 1
@@ -671,7 +671,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &713883644
 MeshRenderer:
@@ -1961,6 +1961,7 @@ MonoBehaviour:
   shootingLeftSpawnPoint: {fileID: 2014614101}
   myWater2ObjectToSpawn: {fileID: 1217554373}
   waterShotTimer: 0
+  waterBallTimer: 0
   myAnimator: {fileID: 1311547258}
   mySprite: {fileID: 1311547255}
   waterTank: 15
@@ -2483,7 +2484,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2070971693}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.01, y: 1.05, z: -0.567}
+  m_LocalPosition: {x: -5.01, y: 1, z: -0.567}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2080651472}
@@ -2512,6 +2513,7 @@ MonoBehaviour:
   damage: 0
   volumeToMonitor: {fileID: 713883642}
   forwardTimer: 0
+  upTimer: 0
   shootTimer: 0
   on: {fileID: 0}
   off: {fileID: 0}

@@ -51,7 +51,7 @@ public class EnemyScript : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
 
-        shootTimer = 4.0f;
+       
         
 
         facingRight = false;
@@ -121,7 +121,7 @@ public class EnemyScript : MonoBehaviour
                 {
                     //Player is within sight
                     enemyActStates = EnemyStates.chasing;
-                    
+                   
 
                 }
 
@@ -145,17 +145,17 @@ public class EnemyScript : MonoBehaviour
                 }
                 */
 
-                if (upTimer <= 2.0f)
+                if (upTimer <= 1.5f)
                 {
                     transform.Translate(new Vector3(0, 1 * Time.deltaTime, 0));
                     
                 }
-                else if (upTimer <= 4.0f)
+                else if (upTimer <= 3.0f)
                 {
                     transform.Translate(new Vector3(0, -1 * Time.deltaTime, 0));
                    
                 }
-                else if (upTimer <= 6.0f)
+                else if (upTimer >= 3.0f)
                 {
                     upTimer = 0;
                 }

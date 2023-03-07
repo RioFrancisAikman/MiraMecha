@@ -7,6 +7,9 @@ TagManager:
   - WaterBall
   - Grounded
   - Ground
+  - Enemy
+  - EnemyBullet
+  - WaterTank
   layers:
   - Default
   - TransparentFX

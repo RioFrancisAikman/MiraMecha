@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterBallScript : MonoBehaviour
+public class EnemyBulletScript : MonoBehaviour
 {
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -14,21 +13,23 @@ public class WaterBallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject);
 
         }
 
-        if (collision.gameObject.tag == "EnemyBullet")
+        if (collision.gameObject.tag == "WaterBall")
         {
             Destroy(gameObject);
 
         }
+
+       
     }
 }

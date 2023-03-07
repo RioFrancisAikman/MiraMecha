@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-    public enum EnemyStates { walking, chasing }
+    public enum EnemyStates { walking, chasing, retreat }
     public EnemyStates enemyActStates;
 
     public GameObject player;
+    PlayerScript myPlayer_script;
+
     public float speed = 1;
     public float health;
     public float damage;
@@ -15,7 +17,7 @@ public class EnemyScript : MonoBehaviour
     public EnemyDetection volumeToMonitor;
 
     public float forwardTimer;
-
+    public float upTimer;
     public float shootTimer;
 
     public Material on, off;
@@ -28,17 +30,34 @@ public class EnemyScript : MonoBehaviour
     public Transform shooting2SpawnPoint;
     public GameObject myEnemy2ObjectToSpawn;
 
+    public bool facingRight;
+    public bool facingLeft;
+    
+    private float distance;
+
+    public Transform playerTransfer;
+    public Transform gameObjectTransform;
+    public float playerAtLeftSide = 1f;
+    public float playerAtRightSide = -1f;
+
     // Start is called before the first frame update
     void Start()
     {
         r = GetComponent<Renderer>();
 
-        speed = 2.0f;
+        speed = 1.0f;
         health = 6.0f;
         damage = 1.0f;
 
         player = GameObject.FindGameObjectWithTag("Player");
 
+        shootTimer = 4.0f;
+        
+
+        facingRight = false;
+        facingLeft = false;
+
+        myPlayer_script = player.GetComponent<PlayerScript>();
 
     }
 
@@ -50,6 +69,15 @@ public class EnemyScript : MonoBehaviour
             Destroy(gameObject);
         }
 
+
+        float distanceAway = Vector3.Distance(gameObjectTransform.position, playerTransfer.position);
+
+
+
+        upTimer += Time.deltaTime;
+
+
+        shootTimer += Time.deltaTime;
 
         switch (enemyActStates)
         {
@@ -63,19 +91,26 @@ public class EnemyScript : MonoBehaviour
 
                 if (forwardTimer <= 10.0f)
                 {
-                    //Enemy moves left
-                    transform.Translate(new Vector3(1 * Time.deltaTime, 0, 0 * Time.deltaTime));
+                    //Enemy moves right
+                    transform.Translate(new Vector3(1 * Time.deltaTime, 0, 0));
                     myEnemySprite.transform.localScale = new Vector3(-1.75f, 1.75f, 1.75f);
+
+                    
+                    facingRight = true;
+                    facingLeft = false;
+
+                }
+                else if (forwardTimer >= 10.0f)
+                {
+                    //Enemy moves left
+                    transform.Translate(new Vector3(-1 * Time.deltaTime, 0, 0));
+                    myEnemySprite.transform.localScale = new Vector3(1.75f, 1.75f, 1.75f);
+
+                    facingLeft = true;
+                    facingRight = false;
 
                 }
                 else if (forwardTimer <= 20.0f)
-                {
-                    //Enemy moves right
-                    transform.Translate(new Vector3(-1 * Time.deltaTime, 0, 0 * Time.deltaTime));
-                    myEnemySprite.transform.localScale = new Vector3(1.75f, 1.75f, 1.75f);
-
-                }
-                else
                 {
                     // resets timer
                     forwardTimer = 0;
@@ -86,7 +121,7 @@ public class EnemyScript : MonoBehaviour
                 {
                     //Player is within sight
                     enemyActStates = EnemyStates.chasing;
-
+                    
 
                 }
 
@@ -97,8 +132,69 @@ public class EnemyScript : MonoBehaviour
                 // Enemy becomes angry
                 r.material = on;
 
+                
+                /*
+                if (facingRight == true)
+                {
+                    transform.Translate(Vector2.right * speed * Time.deltaTime);
+                }
 
-                shootTimer += Time.deltaTime;
+                if (facingLeft == true)
+                {
+                    transform.Translate(Vector2.left * speed * Time.deltaTime);
+                }
+                */
+
+                if (upTimer <= 2.0f)
+                {
+                    transform.Translate(new Vector3(0, 1 * Time.deltaTime, 0));
+                    
+                }
+                else if (upTimer <= 4.0f)
+                {
+                    transform.Translate(new Vector3(0, -1 * Time.deltaTime, 0));
+                   
+                }
+                else if (upTimer <= 6.0f)
+                {
+                    upTimer = 0;
+                }
+
+                /*
+                if (facingRight == true)
+                {
+                    distance = Vector2.Distance(transform.position, player.transform.position);
+                    Vector2 direction = player.transform.position - transform.position;
+                    direction.Normalize();
+                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+                    transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+                    transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+                }
+
+                if (facingLeft == true)
+                {
+                    distance = Vector2.Distance(transform.position, player.transform.position);
+                    Vector2 direction = transform.position - player.transform.position;
+                    direction.Normalize();
+                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+                    transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+                    transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+                }
+                */
+
+                /*
+                if (myPlayer_script.facingRight == true)
+                {
+                    myEnemySprite.transform.localScale = new Vector3(-1.75f, 1.75f, 1.75f);
+                }
+
+                if (myPlayer_script.facingLeft == true)
+                {
+                    myEnemySprite.transform.localScale = new Vector3(1.75f, 1.75f, 1.75f);
+                }
+                */
 
                 if (volumeToMonitor.playerInsideVolume == false)
                 {
@@ -107,36 +203,52 @@ public class EnemyScript : MonoBehaviour
 
 
                 }
+                /*
+               if(distanceAway >= playerAtLeftSide && facingRight)
+               {
+                    if (myPlayer_script.facingLeft == true)
+                    {
+                        myEnemySprite.transform.localScale = new Vector3(1.75f, 1.75f, 1.75f);
+                    }
+                }
 
-               
+                if (distanceAway >= playerAtRightSide && facingLeft)
+                {
+                    if (myPlayer_script.facingRight == true)
+                    {
+                        myEnemySprite.transform.localScale = new Vector3(-1.75f, 1.75f, 1.75f);
+                    }
+                }
+                */
 
-              /*  if (shootTimer >= 5.0f)
+                if (shootTimer >= 4.0f)
                 {
 
-                    if (forwardTimer >= 10.0f)
+                    if (facingRight == true)
                     {
                         GameObject EnemyShot = Instantiate(myEnemy1ObjectToSpawn, shooting1SpawnPoint.position, Quaternion.identity) as GameObject;
                         Rigidbody sr = EnemyShot.GetComponent<Rigidbody>();
 
                         //  Debug.Break();
-                        sr.AddRelativeForce(Vector3.left * 150);
+                        sr.AddRelativeForce(Vector3.right * 175);
 
                         shootTimer = 0;
                     }
-                    else if (forwardTimer >= 20.0f)
+                    else if (facingLeft == true)
                     {
                         GameObject EnemyShot = Instantiate(myEnemy2ObjectToSpawn, shooting2SpawnPoint.position, Quaternion.identity) as GameObject;
                         Rigidbody sr = EnemyShot.GetComponent<Rigidbody>();
 
                         //  Debug.Break();
-                        sr.AddRelativeForce(Vector3.right * 150);
+                        sr.AddRelativeForce(Vector3.left * 175);
 
                         shootTimer = 0;
                     }
+                    
 
                    
                 }
-              */
+              
 
                 break;
 

@@ -15,14 +15,18 @@ public class PlayerScript : MonoBehaviour
     public GameObject myWater2ObjectToSpawn;
 
     public float waterShotTimer;
-    
+    public float waterBallTimer;
+    PlayerScript myPlayer_script;
 
     public Animator myAnimator;
     public GameObject mySprite;
 
     public float waterTank;
 
-    
+    public KeyCode absorbKey = KeyCode.X;
+
+    public bool facingRight;
+    public bool facingLeft;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +38,11 @@ public class PlayerScript : MonoBehaviour
 
         waterTank = 15.0f;
 
-        waterShotTimer = 1.0f;
+        waterShotTimer = 0.75f;
+        waterBallTimer = 0.0f;
+
+        facingRight = false;
+        facingLeft = false;
     }
 
     // Update is called once per frame
@@ -44,7 +52,10 @@ public class PlayerScript : MonoBehaviour
 
 
         waterShotTimer += Time.deltaTime;
+
+
         
+
 
         //Player Movement Code
         //read the input of the horizontal and vertical, store them in a variable
@@ -64,12 +75,19 @@ public class PlayerScript : MonoBehaviour
             //moving to the right
             myAnimator.SetBool("Running", true);
             mySprite.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+
+            facingRight = true;
+            facingLeft = false;
         }
         else if (horizontalInput < 0)
         {
             //moving to the left
             myAnimator.SetBool("Running", true);
             mySprite.transform.localScale = new Vector3(-1.5f, 1.5f, 1.5f);
+
+            facingLeft = true;
+            facingRight = false;
+           
         }
         else
         {
@@ -78,15 +96,28 @@ public class PlayerScript : MonoBehaviour
         }
 
 
+
+
+
+        waterBallTimer += Time.deltaTime;
+
+        /* if (waterBallTimer >= 2)
+         {
+
+             waterBallTimer = 0;
+         }
+        */
+
         if (Input.GetButtonDown("WaterShot"))
         {
             if (waterTank >= 1.0f)
             {
-                if (horizontalInput > 0)
+                
+                if (facingRight == true)
                 {
-                    
+                   
 
-                    if (waterShotTimer >= 1.0f)
+                    if (waterShotTimer >= 0.75f)
                     {
                         //Player attacks
                         Debug.Log("You shot water");
@@ -101,15 +132,19 @@ public class PlayerScript : MonoBehaviour
                         waterTank = waterTank - 1;
 
                         waterShotTimer = 0;
+
+
+                        
                     }
                    
                 }
+              
 
-                if (horizontalInput < 0)
+                if (facingLeft == true)
                 {
                    
 
-                    if (waterShotTimer >= 1.0f)
+                    if (waterShotTimer >= 0.75f)
                     {
                         //Player attacks
                         Debug.Log("You shot water");
@@ -124,9 +159,16 @@ public class PlayerScript : MonoBehaviour
                         waterTank = waterTank - 1;
 
                         waterShotTimer = 0;
+
+                       
+
+                        
+                          
+                        
                     }
 
                 }
+       
 
 
             }
@@ -137,7 +179,9 @@ public class PlayerScript : MonoBehaviour
 
             }
 
-            if (health <= 0)
+       
+
+            if (health == 0)
             {
                 //Game ends
                 Debug.Log("Game Over!");
@@ -159,5 +203,41 @@ public class PlayerScript : MonoBehaviour
         {
             myAnimator.SetBool("Attacked", false);
         }
+
+        if (collision.gameObject.tag == "EnemyBullet")
+        {
+            myAnimator.SetBool("Attacked", true);
+
+            // Player takes damage
+            health = health - damage;
+            Debug.Log("Ouch!");
+        }
+        else
+        {
+            myAnimator.SetBool("Attacked", false);
+        }
+
+       
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+       
+        
+            if (other.gameObject.tag == "WaterTank")
+            {
+
+                if (Input.GetKeyDown(absorbKey))
+                {
+                    waterTank = 15.0f;
+                    Debug.Log("Water tank filled up");
+                    Destroy(other.gameObject);
+                }
+
+
+            }
+       
+    }
+
+    
 }

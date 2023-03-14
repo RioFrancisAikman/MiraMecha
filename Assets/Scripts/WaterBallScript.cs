@@ -30,5 +30,12 @@ public class WaterBallScript : MonoBehaviour
             Destroy(gameObject);
 
         }
+
+
+        if (collision.gameObject.tag == "Ground")
+        {
+            Destroy(gameObject);
+
+        }
     }
 }

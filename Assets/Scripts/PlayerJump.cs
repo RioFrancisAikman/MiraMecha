@@ -23,14 +23,18 @@ public class PlayerJump : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         isOnGround = true;
         
-        if (isOnGround == false)
+        
+
+        if (isOnGround == true)
+        {
+          // myAnimator.SetBool("Jumping", false);
+        }
+        else if (isOnGround == false)
         {
             jumpforce = 0f;
-
-           
-
+          //  myAnimator.SetBool("Jumping", true);
         }
-       
+
     }
 
     // Update is called once per frame
@@ -44,9 +48,22 @@ public class PlayerJump : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
 
-                // myAnimator.SetBool("Jumping", true);
+                
+               // myAnimator.SetBool("Jumping", true);
                 rb.AddForce(transform.up * jumpforce * 9f, ForceMode.Impulse);
+                /*
+                if (doubleJump == true)
+                {
+                    rb.AddForce(transform.up * jumpforce * 18f, ForceMode.Impulse);
+                    doubleJump = false;
+                }
+                */
                 isOnGround = false;
+            }
+            else
+            {
+               
+               // myAnimator.SetBool("Jumping", false);
             }
         }
         /*

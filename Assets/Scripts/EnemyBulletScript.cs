@@ -30,6 +30,11 @@ public class EnemyBulletScript : MonoBehaviour
 
         }
 
-       
+
+        if (collision.gameObject.tag == "Ground")
+        {
+            Destroy(gameObject);
+
+        }
     }
 }

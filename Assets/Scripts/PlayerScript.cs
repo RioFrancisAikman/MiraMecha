@@ -122,11 +122,11 @@ public class PlayerScript : MonoBehaviour
                         //Player attacks
                         Debug.Log("You shot water");
                         GameObject WaterBall = Instantiate(myWater1ObjectToSpawn, shootingRightSpawnPoint.position, Quaternion.identity) as GameObject;
-                        Rigidbody r = WaterBall.GetComponent<Rigidbody>();
+                        Rigidbody2D r = WaterBall.GetComponent<Rigidbody2D>();
 
 
                         //  Debug.Break();
-                        r.AddRelativeForce(Vector3.right * 175);
+                        r.AddRelativeForce(Vector2.right * 25);
 
                         //Lowers amount of water
                         waterTank = waterTank - 1;
@@ -149,11 +149,11 @@ public class PlayerScript : MonoBehaviour
                         //Player attacks
                         Debug.Log("You shot water");
                         GameObject WaterBall = Instantiate(myWater2ObjectToSpawn, shootingLeftSpawnPoint.position, Quaternion.identity) as GameObject;
-                        Rigidbody r = WaterBall.GetComponent<Rigidbody>();
+                        Rigidbody2D r = WaterBall.GetComponent<Rigidbody2D>();
 
 
                         //  Debug.Break();
-                        r.AddRelativeForce(Vector3.left * 175);
+                        r.AddRelativeForce(Vector2.left * 25);
 
                         //Lowers amount of water
                         waterTank = waterTank - 1;
@@ -220,13 +220,13 @@ public class PlayerScript : MonoBehaviour
        
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay2D(Collider2D other)
     {
        
         
             if (other.gameObject.tag == "WaterTank")
             {
-
+                Debug.Log("Collect Water?");
                 if (Input.GetKeyDown(absorbKey))
                 {
                     waterTank = 15.0f;

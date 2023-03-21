@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerJump : MonoBehaviour
 {
-    Rigidbody rb;
+    Rigidbody2D rb;
     public Vector3 boxSize;
     public float maxDistance;
     public float jumpforce = 0.5f;
@@ -20,7 +20,7 @@ public class PlayerJump : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         isOnGround = true;
         
         
@@ -50,7 +50,7 @@ public class PlayerJump : MonoBehaviour
 
                 
                // myAnimator.SetBool("Jumping", true);
-                rb.AddForce(transform.up * jumpforce * 9f, ForceMode.Impulse);
+                rb.AddForce(transform.up * jumpforce * 9f, (ForceMode2D)ForceMode.Impulse);
                 /*
                 if (doubleJump == true)
                 {
@@ -78,13 +78,15 @@ public class PlayerJump : MonoBehaviour
 
     }
 
-    private void OnCollisionStay(Collision collision)
+    
+
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Ground")
         {
             isOnGround = true;
+
         }
     }
-
 }
 

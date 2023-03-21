@@ -70,7 +70,7 @@ public class EnemyScript : MonoBehaviour
         }
 
 
-        float distanceAway = Vector3.Distance(gameObjectTransform.position, playerTransfer.position);
+        float distanceAway = Vector2.Distance(gameObjectTransform.position, playerTransfer.position);
 
 
 
@@ -228,20 +228,20 @@ public class EnemyScript : MonoBehaviour
                     if (facingRight == true)
                     {
                         GameObject EnemyShot = Instantiate(myEnemy1ObjectToSpawn, shooting1SpawnPoint.position, Quaternion.identity) as GameObject;
-                        Rigidbody sr = EnemyShot.GetComponent<Rigidbody>();
+                        Rigidbody2D sr = EnemyShot.GetComponent<Rigidbody2D>();
 
                         //  Debug.Break();
-                        sr.AddRelativeForce(Vector3.right * 175);
+                        sr.AddRelativeForce(Vector2.right * 50);
 
                         shootTimer = 0;
                     }
                     else if (facingLeft == true)
                     {
                         GameObject EnemyShot = Instantiate(myEnemy2ObjectToSpawn, shooting2SpawnPoint.position, Quaternion.identity) as GameObject;
-                        Rigidbody sr = EnemyShot.GetComponent<Rigidbody>();
+                        Rigidbody2D sr = EnemyShot.GetComponent<Rigidbody2D>();
 
                         //  Debug.Break();
-                        sr.AddRelativeForce(Vector3.left * 175);
+                        sr.AddRelativeForce(Vector2.left * 50);
 
                         shootTimer = 0;
                     }
@@ -266,7 +266,7 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "WaterBall")
         {

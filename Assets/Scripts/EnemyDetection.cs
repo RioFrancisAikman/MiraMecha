@@ -14,7 +14,7 @@ public class EnemyDetection : MonoBehaviour
         r = GetComponent<Renderer>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
@@ -24,7 +24,7 @@ public class EnemyDetection : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "Player")
         {

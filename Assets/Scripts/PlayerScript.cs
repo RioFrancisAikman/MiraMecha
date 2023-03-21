@@ -21,12 +21,16 @@ public class PlayerScript : MonoBehaviour
     public Animator myAnimator;
     public GameObject mySprite;
 
-    public float waterTank;
+    
+    private int maxwater;
+    public int currentwater;
+    public WaterTankBar waterTankBar;
 
     public KeyCode absorbKey = KeyCode.X;
 
     public bool facingRight;
     public bool facingLeft;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -36,13 +40,19 @@ public class PlayerScript : MonoBehaviour
 
         damage = 1.0f;
 
-        waterTank = 15.0f;
+       
+        maxwater = 15;
+
+        waterTankBar.SetMaxWater(maxwater);
 
         waterShotTimer = 0.75f;
         waterBallTimer = 0.0f;
 
         facingRight = false;
         facingLeft = false;
+
+        currentwater = maxwater;
+        
     }
 
     // Update is called once per frame
@@ -110,7 +120,7 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetButtonDown("WaterShot"))
         {
-            if (waterTank >= 1.0f)
+            if (currentwater >= 1.0)
             {
                 
                 if (facingRight == true)
@@ -129,12 +139,12 @@ public class PlayerScript : MonoBehaviour
                         r.AddRelativeForce(Vector2.right * 25);
 
                         //Lowers amount of water
-                        waterTank = waterTank - 1;
+                        LoseWater(1);
 
                         waterShotTimer = 0;
 
+                        waterTankBar.SetWater(currentwater);
 
-                        
                     }
                    
                 }
@@ -156,15 +166,15 @@ public class PlayerScript : MonoBehaviour
                         r.AddRelativeForce(Vector2.left * 25);
 
                         //Lowers amount of water
-                        waterTank = waterTank - 1;
+                        LoseWater(1);
 
                         waterShotTimer = 0;
 
-                       
 
-                        
-                          
-                        
+
+                        waterTankBar.SetWater(currentwater);
+
+
                     }
 
                 }
@@ -181,15 +191,17 @@ public class PlayerScript : MonoBehaviour
 
        
 
-            if (health == 0)
-            {
-                //Game ends
-                Debug.Log("Game Over!");
-            }
+           
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
+
+    void LoseWater(int loseWater)
+    {
+        currentwater -= loseWater;
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
@@ -198,6 +210,14 @@ public class PlayerScript : MonoBehaviour
             // Player takes damage
             health = health - damage;
             Debug.Log("Ouch!");
+
+            
+
+            if (health <= 0)
+            {
+                //Game ends
+                Debug.Log("Game Over!");
+            }
         }
         else
         {
@@ -211,6 +231,12 @@ public class PlayerScript : MonoBehaviour
             // Player takes damage
             health = health - damage;
             Debug.Log("Ouch!");
+
+            if (health <= 0)
+            {
+                //Game ends
+                Debug.Log("Game Over!");
+            }
         }
         else
         {
@@ -229,9 +255,11 @@ public class PlayerScript : MonoBehaviour
                 Debug.Log("Collect Water?");
                 if (Input.GetKeyDown(absorbKey))
                 {
-                    waterTank = 15.0f;
+                    currentwater = 15;
                     Debug.Log("Water tank filled up");
                     Destroy(other.gameObject);
+
+                waterTankBar.SetWater(currentwater);
                 }
 
 

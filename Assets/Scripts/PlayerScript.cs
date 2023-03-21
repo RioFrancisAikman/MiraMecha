@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     private float speed;
-    public float health;
+    public int maxhealth;
+    public int currenthealth;
+    public HealthBar healthBar;
     public float damage;
 
     public Transform shootingRightSpawnPoint;
@@ -36,7 +38,12 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         speed = 3.0f;
-        health = 10.0f;
+
+        maxhealth = 10;
+
+        healthBar.SetMaxHealth(maxhealth);
+
+        currenthealth = maxhealth;
 
         damage = 1.0f;
 
@@ -201,6 +208,11 @@ public class PlayerScript : MonoBehaviour
         currentwater -= loseWater;
     }
 
+    void TakeDamage(int damage)
+    {
+        currenthealth -= damage;
+    }
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
@@ -208,12 +220,14 @@ public class PlayerScript : MonoBehaviour
             myAnimator.SetBool("Attacked", true);
 
             // Player takes damage
-            health = health - damage;
+            TakeDamage(1);
+            healthBar.SetHealth(currenthealth);
+
             Debug.Log("Ouch!");
 
             
 
-            if (health <= 0)
+            if (maxhealth <= 0)
             {
                 //Game ends
                 Debug.Log("Game Over!");
@@ -229,10 +243,12 @@ public class PlayerScript : MonoBehaviour
             myAnimator.SetBool("Attacked", true);
 
             // Player takes damage
-            health = health - damage;
+            TakeDamage(1);
+            healthBar.SetHealth(currenthealth);
+
             Debug.Log("Ouch!");
 
-            if (health <= 0)
+            if (maxhealth <= 0)
             {
                 //Game ends
                 Debug.Log("Game Over!");

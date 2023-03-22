@@ -18,6 +18,10 @@ public class PlayerScript : MonoBehaviour
 
     public float waterShotTimer;
     public float waterBallTimer;
+
+    public GameObject waterBallPrefab;
+    private PlayerObjectPool playerObjectPool;
+
     PlayerScript myPlayer_script;
 
     public Animator myAnimator;
@@ -59,8 +63,10 @@ public class PlayerScript : MonoBehaviour
         facingLeft = false;
 
         currentwater = maxwater;
-        
+
+        playerObjectPool = FindObjectOfType<PlayerObjectPool>();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -124,7 +130,7 @@ public class PlayerScript : MonoBehaviour
              waterBallTimer = 0;
          }
         */
-
+        
         if (Input.GetButtonDown("WaterShot"))
         {
             if (currentwater >= 1.0)
@@ -137,6 +143,7 @@ public class PlayerScript : MonoBehaviour
                     if (waterShotTimer >= 0.75f)
                     {
                         //Player attacks
+                        /*
                         Debug.Log("You shot water");
                         GameObject WaterBall = Instantiate(myWater1ObjectToSpawn, shootingRightSpawnPoint.position, Quaternion.identity) as GameObject;
                         Rigidbody2D r = WaterBall.GetComponent<Rigidbody2D>();
@@ -144,13 +151,18 @@ public class PlayerScript : MonoBehaviour
 
                         //  Debug.Break();
                         r.AddRelativeForce(Vector2.right * 25);
-
+                        */
                         //Lowers amount of water
                         LoseWater(1);
 
                         waterShotTimer = 0;
 
                         waterTankBar.SetWater(currentwater);
+
+                        GameObject waterBall = playerObjectPool.GetWaterBall();
+                        waterBall.transform.position = transform.position + transform.right * 2;
+                        waterBall.transform.rotation = transform.rotation;
+                        waterBall.SetActive(true);
 
                     }
                    
@@ -164,6 +176,7 @@ public class PlayerScript : MonoBehaviour
                     if (waterShotTimer >= 0.75f)
                     {
                         //Player attacks
+                        /*
                         Debug.Log("You shot water");
                         GameObject WaterBall = Instantiate(myWater2ObjectToSpawn, shootingLeftSpawnPoint.position, Quaternion.identity) as GameObject;
                         Rigidbody2D r = WaterBall.GetComponent<Rigidbody2D>();
@@ -171,7 +184,7 @@ public class PlayerScript : MonoBehaviour
 
                         //  Debug.Break();
                         r.AddRelativeForce(Vector2.left * 25);
-
+                        */
                         //Lowers amount of water
                         LoseWater(1);
 
@@ -200,7 +213,10 @@ public class PlayerScript : MonoBehaviour
 
            
         }
+        
     }
+
+   
 
 
     void LoseWater(int loseWater)

@@ -39,7 +39,7 @@ public class PlayerScript : MonoBehaviour
     {
         speed = 3.0f;
 
-        maxhealth = 10;
+        maxhealth = 20;
 
         healthBar.SetMaxHealth(maxhealth);
 

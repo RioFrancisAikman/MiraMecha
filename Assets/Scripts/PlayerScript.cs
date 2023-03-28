@@ -21,6 +21,7 @@ public class PlayerScript : MonoBehaviour
 
     public GameObject waterBallPrefab;
     private PlayerObjectPool playerObjectPool;
+    private PlayerObjectPoolLeft playerObjectPoolLeft;
 
     PlayerScript myPlayer_script;
 
@@ -52,7 +53,7 @@ public class PlayerScript : MonoBehaviour
         damage = 1.0f;
 
        
-        maxwater = 15;
+        maxwater = 12;
 
         waterTankBar.SetMaxWater(maxwater);
 
@@ -65,6 +66,7 @@ public class PlayerScript : MonoBehaviour
         currentwater = maxwater;
 
         playerObjectPool = FindObjectOfType<PlayerObjectPool>();
+        playerObjectPoolLeft = FindObjectOfType<PlayerObjectPoolLeft>();
     }
 
 
@@ -160,16 +162,14 @@ public class PlayerScript : MonoBehaviour
                         waterTankBar.SetWater(currentwater);
 
                         GameObject waterBall = playerObjectPool.GetWaterBall();
-                        waterBall.transform.position = transform.position + transform.right * 2;
+                        waterBall.transform.position = transform.position + transform.right * 0.75f;
                         waterBall.transform.rotation = transform.rotation;
                         waterBall.SetActive(true);
 
                     }
                    
                 }
-              
-
-                if (facingLeft == true)
+                else if (facingLeft == true)
                 {
                    
 
@@ -194,6 +194,10 @@ public class PlayerScript : MonoBehaviour
 
                         waterTankBar.SetWater(currentwater);
 
+                        GameObject waterBall = playerObjectPoolLeft.GetWaterBall();
+                        waterBall.transform.position = transform.position + transform.right * -0.75f;
+                        waterBall.transform.rotation = transform.rotation;
+                        waterBall.SetActive(true);
 
                     }
 
@@ -287,7 +291,7 @@ public class PlayerScript : MonoBehaviour
                 Debug.Log("Collect Water?");
                 if (Input.GetKeyDown(absorbKey))
                 {
-                    currentwater = 15;
+                    currentwater = 12;
                     Debug.Log("Water tank filled up");
                     Destroy(other.gameObject);
 

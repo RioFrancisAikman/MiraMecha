@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1885038699070844110}
   - component: {fileID: 4766863736872903572}
   m_Layer: 0
-  m_Name: WaterBall_Right2
+  m_Name: WaterBall_Right
   m_TagString: WaterBall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,6 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854a532767aaa0c4ca816756fe9e2ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  isRightSide: 0
+  isLeftSide: 0
 --- !u!50 &1885038699070844110
 Rigidbody2D:
   serializedVersion: 4

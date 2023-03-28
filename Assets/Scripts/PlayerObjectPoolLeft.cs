@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerObjectPool : MonoBehaviour
+public class PlayerObjectPoolLeft : MonoBehaviour
 {
     // Holds reference to waterBall GameObjects in the pool
     public List<GameObject> waterBalls;
@@ -10,7 +10,7 @@ public class PlayerObjectPool : MonoBehaviour
     // Number of waterBalls to create in pool
     public int numWaterBalls;
 
-    
+
 
     private void Awake()
     {
@@ -39,7 +39,7 @@ public class PlayerObjectPool : MonoBehaviour
                 return obj;
             }
 
-           
+
         }
 
         GameObject newObj = Instantiate(Resources.Load("WaterBall"), Vector2.zero, Quaternion.identity) as GameObject;
@@ -62,29 +62,29 @@ public class PlayerObjectPool : MonoBehaviour
             if (collision.gameObject.tag == "Enemy")
             {
                 gameObject.SetActive(false);
-                
+
 
             }
             if (collision.gameObject.tag == "EnemyBullet")
             {
                 gameObject.SetActive(false);
-                
+
             }
             if (collision.gameObject.tag == "Ground")
             {
                 gameObject.SetActive(false);
-                
+
             }
-            
+
         }
 
 
 
-      
-
-       
 
 
-       
+
+
+
+
     }
 }

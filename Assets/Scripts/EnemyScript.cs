@@ -225,7 +225,7 @@ public class EnemyScript : MonoBehaviour
                 if (shootTimer >= 4.0f)
                 {
 
-                    if (facingRight == true)
+                  /*  if (facingRight == true)
                     {
                         GameObject EnemyShot = Instantiate(myEnemy1ObjectToSpawn, shooting1SpawnPoint.position, Quaternion.identity) as GameObject;
                         Rigidbody2D sr = EnemyShot.GetComponent<Rigidbody2D>();
@@ -246,7 +246,7 @@ public class EnemyScript : MonoBehaviour
                         shootTimer = 0;
                     }
                     
-
+                    */
                    
                 }
               

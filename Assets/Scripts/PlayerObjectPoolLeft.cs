@@ -53,38 +53,5 @@ public class PlayerObjectPoolLeft : MonoBehaviour
         obj.SetActive(false);
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-
-
-        foreach (GameObject obj in waterBalls)
-        {
-            if (collision.gameObject.tag == "Enemy")
-            {
-                gameObject.SetActive(false);
-
-
-            }
-            if (collision.gameObject.tag == "EnemyBullet")
-            {
-                gameObject.SetActive(false);
-
-            }
-            if (collision.gameObject.tag == "Ground")
-            {
-                gameObject.SetActive(false);
-
-            }
-
-        }
-
-
-
-
-
-
-
-
-
-    }
+   
 }

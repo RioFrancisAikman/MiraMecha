@@ -40,6 +40,9 @@ public class EnemyScript : MonoBehaviour
     public float playerAtLeftSide = 1f;
     public float playerAtRightSide = -1f;
 
+    private EnemyObjectPool enemyObjectPool;
+    private EnemyObjectPoolLeft enemyObjectPoolLeft;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +62,8 @@ public class EnemyScript : MonoBehaviour
 
         myPlayer_script = player.GetComponent<PlayerScript>();
 
+        enemyObjectPool = FindObjectOfType<EnemyObjectPool>();
+        enemyObjectPoolLeft = FindObjectOfType<EnemyObjectPoolLeft>();
     }
 
     // Update is called once per frame
@@ -225,28 +230,38 @@ public class EnemyScript : MonoBehaviour
                 if (shootTimer >= 4.0f)
                 {
 
-                  /*  if (facingRight == true)
+                    if (facingRight == true)
                     {
-                        GameObject EnemyShot = Instantiate(myEnemy1ObjectToSpawn, shooting1SpawnPoint.position, Quaternion.identity) as GameObject;
+                        /*GameObject EnemyShot = Instantiate(myEnemy1ObjectToSpawn, shooting1SpawnPoint.position, Quaternion.identity) as GameObject;
                         Rigidbody2D sr = EnemyShot.GetComponent<Rigidbody2D>();
 
                         //  Debug.Break();
                         sr.AddRelativeForce(Vector2.right * 50);
+                        */
+                        GameObject enemyBullet = enemyObjectPool.GetEnemyBullet();
+                        enemyBullet.transform.position = transform.position + transform.right * 0.75f;
+                        enemyBullet.transform.rotation = transform.rotation;
+                        enemyBullet.SetActive(true);
 
                         shootTimer = 0;
                     }
                     else if (facingLeft == true)
                     {
-                        GameObject EnemyShot = Instantiate(myEnemy2ObjectToSpawn, shooting2SpawnPoint.position, Quaternion.identity) as GameObject;
+                        /*GameObject EnemyShot = Instantiate(myEnemy2ObjectToSpawn, shooting2SpawnPoint.position, Quaternion.identity) as GameObject;
                         Rigidbody2D sr = EnemyShot.GetComponent<Rigidbody2D>();
 
                         //  Debug.Break();
                         sr.AddRelativeForce(Vector2.left * 50);
+                        */
+                        GameObject enemyBullet = enemyObjectPoolLeft.GetEnemyBullet();
+                        enemyBullet.transform.position = transform.position + transform.right * -0.75f;
+                        enemyBullet.transform.rotation = transform.rotation;
+                        enemyBullet.SetActive(true);
 
                         shootTimer = 0;
                     }
                     
-                    */
+                    
                    
                 }
               

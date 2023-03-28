@@ -44,7 +44,7 @@ public class PlayerScript : MonoBehaviour
     {
         speed = 3.0f;
 
-        maxhealth = 20;
+        maxhealth = 14;
 
         healthBar.SetMaxHealth(maxhealth);
 
@@ -144,17 +144,7 @@ public class PlayerScript : MonoBehaviour
 
                     if (waterShotTimer >= 0.75f)
                     {
-                        //Player attacks
-                        /*
-                        Debug.Log("You shot water");
-                        GameObject WaterBall = Instantiate(myWater1ObjectToSpawn, shootingRightSpawnPoint.position, Quaternion.identity) as GameObject;
-                        Rigidbody2D r = WaterBall.GetComponent<Rigidbody2D>();
-
-
-                        //  Debug.Break();
-                        r.AddRelativeForce(Vector2.right * 25);
-                        */
-                        //Lowers amount of water
+                       
                         LoseWater(1);
 
                         waterShotTimer = 0;

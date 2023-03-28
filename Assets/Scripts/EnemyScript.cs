@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-    public enum EnemyStates { walking, chasing, retreat }
+    public enum EnemyStates { walking, chasing, retreat, positioning }
     public EnemyStates enemyActStates;
 
     public GameObject player;
@@ -121,11 +121,22 @@ public class EnemyScript : MonoBehaviour
                     forwardTimer = 0;
                 }
 
-
+                //Player is within sight
                 if (volumeToMonitor.playerInsideVolume == true)
                 {
-                    //Player is within sight
-                    enemyActStates = EnemyStates.chasing;
+
+                    if (health >= 3)
+                    {
+                        
+                        enemyActStates = EnemyStates.chasing;
+                    }
+                    else if (health <= 2)
+                    {
+                        enemyActStates = EnemyStates.retreat;
+                    }
+
+
+                    
                    
 
                 }
@@ -137,7 +148,7 @@ public class EnemyScript : MonoBehaviour
                 // Enemy becomes angry
                 r.material = on;
 
-                
+
                 /*
                 if (facingRight == true)
                 {
@@ -150,7 +161,7 @@ public class EnemyScript : MonoBehaviour
                 }
                 */
 
-
+                /*
                 if (upTimer <= 1.5f)
                 {
                     transform.Translate(new Vector3(0, 1 * Time.deltaTime, 0));
@@ -165,7 +176,32 @@ public class EnemyScript : MonoBehaviour
                 {
                     upTimer = 0;
                 }
+                */
 
+                if (facingRight == true)
+                {
+                    Vector2 attackDirection = player.transform.position - transform.position;
+                    // transform.Translate(attackDirection.normalized * 1.5f * Time.deltaTime);
+
+                    float angle = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg;
+
+                    transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+                    transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+                }
+
+                if (facingLeft == true)
+                {
+                    Vector2 attackDirection = transform.position - player.transform.position;
+                    // transform.Translate(attackDirection.normalized * 1.5f * Time.deltaTime);
+
+                    float angle = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg;
+
+                    transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+                    transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+                }
+
+                // float angle = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg;
+                // transform.rotation = Quaternion.Euler(Vector3.forward * angle);
                 /*
                 if (facingRight == true)
                 {
@@ -190,17 +226,7 @@ public class EnemyScript : MonoBehaviour
                 }
                 */
 
-                /*
-                if (myPlayer_script.facingRight == true)
-                {
-                    myEnemySprite.transform.localScale = new Vector3(-1.75f, 1.75f, 1.75f);
-                }
 
-                if (myPlayer_script.facingLeft == true)
-                {
-                    myEnemySprite.transform.localScale = new Vector3(1.75f, 1.75f, 1.75f);
-                }
-                */
 
                 if (volumeToMonitor.playerInsideVolume == false)
                 {
@@ -208,6 +234,11 @@ public class EnemyScript : MonoBehaviour
                     enemyActStates = EnemyStates.walking;
 
 
+                }
+
+                if (health <= 2)
+                {
+                    enemyActStates = EnemyStates.retreat;
                 }
                 /*
                if(distanceAway >= playerAtLeftSide && facingRight)
@@ -268,16 +299,40 @@ public class EnemyScript : MonoBehaviour
 
                 break;
 
-           
+            case EnemyStates.retreat:
+
+                Vector2 retreatDirection = transform.position - player.transform.position;
+                transform.Translate(retreatDirection.normalized * 2 * Time.deltaTime);
+
+                float retreatAngle = Mathf.Atan2(retreatDirection.y, retreatDirection.x) * Mathf.Rad2Deg;
 
                 
+                transform.rotation = Quaternion.Euler(Vector3.forward * retreatAngle);
 
-               
+                if (volumeToMonitor.playerInsideVolume == false)
+                {
+                    //Player is not within sight
+                    enemyActStates = EnemyStates.walking;
 
 
-              
+                }
 
-               
+                //   transform.Translate(Vector2.right * speed * Time.deltaTime);
+
+
+
+
+                break;
+
+            case EnemyStates.positioning:
+
+                // Enemy goes to an enemy point when it loses track of player
+
+
+
+                break;
+
+
         }
     }
 

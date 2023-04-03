@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaterBallScript : MonoBehaviour
 {
     public float speed;
+    public float spawnTimer;
 
     private PlayerObjectPool playerObjectPool;
     private PlayerObjectPoolLeft playerObjectPoolLeft;
@@ -50,6 +51,17 @@ public class WaterBallScript : MonoBehaviour
     void Update()
     {
         Fire();
+        spawnTimer += Time.deltaTime;
+
+        if (spawnTimer >= 1)
+        {
+            gameObject.SetActive(false);
+            spawnTimer = 0;
+        }
+        else if (spawnTimer <= 0.9f)
+        {
+            gameObject.SetActive(true);
+        }
         
     }
 

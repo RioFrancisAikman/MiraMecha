@@ -93,6 +93,12 @@ public class PlayerJump : MonoBehaviour
             isOnGround = true;
 
         }
+
+        if (collision.gameObject.tag == "FallingPlatform")
+        {
+            isOnGround = true;
+
+        }
     }
 }
 

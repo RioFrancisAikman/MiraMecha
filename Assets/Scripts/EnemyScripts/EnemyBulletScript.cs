@@ -5,8 +5,11 @@ using UnityEngine;
 public class EnemyBulletScript : MonoBehaviour
 {
     public float speed;
+    public float spawnTimer;
+
     private EnemyObjectPool enemyObjectPool;
     private EnemyObjectPoolLeft enemyObjectPoolLeft;
+
     public bool isRightSide;
     public bool isLeftSide;
 
@@ -44,6 +47,17 @@ public class EnemyBulletScript : MonoBehaviour
     void Update()
     {
         Fire();
+        spawnTimer += Time.deltaTime;
+
+        if (spawnTimer >= 2)
+        {
+            gameObject.SetActive(false);
+            spawnTimer = 0;
+        }
+        else if (spawnTimer <= 1.9f)
+        {
+            gameObject.SetActive(true);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

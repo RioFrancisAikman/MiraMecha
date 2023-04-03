@@ -278,7 +278,7 @@ public class PlayerScript : MonoBehaviour
         
             if (other.gameObject.tag == "WaterTank")
             {
-                Debug.Log("Collect Water?");
+                
                 if (Input.GetKeyDown(absorbKey))
                 {
                     currentwater = 12;

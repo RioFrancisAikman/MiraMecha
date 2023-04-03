@@ -100,6 +100,8 @@ MonoBehaviour:
   speed: 0
   isRightSide: 0
   isLeftSide: 0
+  myWaterAnimator: {fileID: 1124059408187126660}
+  myWaterSprite: {fileID: 4863506792969481236}
 --- !u!50 &1885038699070844110
 Rigidbody2D:
   serializedVersion: 4
@@ -159,7 +161,7 @@ GameObject:
   - component: {fileID: 6591457240691039640}
   - component: {fileID: 1124059408187126660}
   m_Layer: 0
-  m_Name: bolt1
+  m_Name: bolt1Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

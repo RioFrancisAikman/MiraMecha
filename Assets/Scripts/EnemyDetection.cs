@@ -18,7 +18,7 @@ public class EnemyDetection : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log("I SEE YOOOU!!!");
+            Debug.Log("Target in Sight!");
             playerInsideVolume = true;
             r.material = on;
         }
@@ -28,7 +28,7 @@ public class EnemyDetection : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log("Where did you go!?");
+            Debug.Log("Target Lost?");
             playerInsideVolume = false;
             r.material = off;
         }

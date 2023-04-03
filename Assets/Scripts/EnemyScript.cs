@@ -37,8 +37,8 @@ public class EnemyScript : MonoBehaviour
 
     public Transform playerTransfer;
     public Transform gameObjectTransform;
-    public float playerAtLeftSide = 1f;
-    public float playerAtRightSide = -1f;
+    public float playerNearby = 1.25f;
+    
 
     private EnemyObjectPool enemyObjectPool;
     private EnemyObjectPoolLeft enemyObjectPoolLeft;
@@ -48,8 +48,8 @@ public class EnemyScript : MonoBehaviour
     {
         r = GetComponent<Renderer>();
 
-        speed = 1.0f;
-        health = 6.0f;
+        speed = 1.5f;
+        health = 4.0f;
         damage = 1.0f;
 
         player = GameObject.FindGameObjectWithTag("Player");
@@ -189,7 +189,7 @@ public class EnemyScript : MonoBehaviour
                     transform.rotation = Quaternion.Euler(Vector3.forward * angle);
                 }
 
-                if (facingLeft == true)
+                else if (facingLeft == true)
                 {
                     Vector2 attackDirection = transform.position - player.transform.position;
                     // transform.Translate(attackDirection.normalized * 1.5f * Time.deltaTime);
@@ -198,6 +198,15 @@ public class EnemyScript : MonoBehaviour
 
                     transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
                     transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+                }
+                if (distanceAway <= playerNearby)
+                {
+                    // Stops moving
+                    speed = 0;
+                }
+                else
+                {
+                    speed = 1.5f;
                 }
 
                 // float angle = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg;
@@ -240,23 +249,10 @@ public class EnemyScript : MonoBehaviour
                 {
                     enemyActStates = EnemyStates.retreat;
                 }
-                /*
-               if(distanceAway >= playerAtLeftSide && facingRight)
-               {
-                    if (myPlayer_script.facingLeft == true)
-                    {
-                        myEnemySprite.transform.localScale = new Vector3(1.75f, 1.75f, 1.75f);
-                    }
-                }
-
-                if (distanceAway >= playerAtRightSide && facingLeft)
-                {
-                    if (myPlayer_script.facingRight == true)
-                    {
-                        myEnemySprite.transform.localScale = new Vector3(-1.75f, 1.75f, 1.75f);
-                    }
-                }
-                */
+                
+               
+               
+                
 
                 if (shootTimer >= 4.0f)
                 {
@@ -301,13 +297,28 @@ public class EnemyScript : MonoBehaviour
 
             case EnemyStates.retreat:
 
-                Vector2 retreatDirection = transform.position - player.transform.position;
-                transform.Translate(retreatDirection.normalized * 2 * Time.deltaTime);
+                if (facingRight == true)
+                {
+                    Vector2 retreatDirection = transform.position - player.transform.position;
+                    transform.Translate(retreatDirection.normalized * 2f * Time.deltaTime);
 
-                float retreatAngle = Mathf.Atan2(retreatDirection.y, retreatDirection.x) * Mathf.Rad2Deg;
+                    float retreatAngle = Mathf.Atan2(retreatDirection.y, retreatDirection.x) * Mathf.Rad2Deg;
 
-                
-                transform.rotation = Quaternion.Euler(Vector3.forward * retreatAngle);
+
+                    transform.rotation = Quaternion.Euler(Vector3.back * retreatAngle);
+
+                }
+                else if (facingLeft == true)
+                {
+                    Vector2 retreatDirection = player.transform.position - transform.position;
+                    transform.Translate(retreatDirection.normalized * 2f * Time.deltaTime);
+
+                    float retreatAngle = Mathf.Atan2(retreatDirection.y, retreatDirection.x) * Mathf.Rad2Deg;
+
+
+                    transform.rotation = Quaternion.Euler(Vector3.back * retreatAngle);
+
+                }
 
                 if (volumeToMonitor.playerInsideVolume == false)
                 {

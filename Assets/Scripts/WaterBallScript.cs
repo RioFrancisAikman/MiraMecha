@@ -5,10 +5,15 @@ using UnityEngine;
 public class WaterBallScript : MonoBehaviour
 {
     public float speed;
+
     private PlayerObjectPool playerObjectPool;
     private PlayerObjectPoolLeft playerObjectPoolLeft;
+
     public bool isRightSide;
     public bool isLeftSide;
+
+    public Animator myWaterAnimator;
+    public GameObject myWaterSprite;
 
     // Move the bullet forward
     public void Fire()
@@ -57,20 +62,24 @@ public class WaterBallScript : MonoBehaviour
 
         if (collision.gameObject.tag == "Enemy")
         {
+           // myWaterAnimator.SetBool("HasCollided", true);
+          //  myWaterSprite.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             gameObject.SetActive(false);
 
 
         }
         else if (collision.gameObject.tag == "EnemyBullet")
         {
-
+          //  myWaterAnimator.SetBool("HasCollided", true);
+           // myWaterSprite.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             gameObject.SetActive(false);
         }
         else if (collision.gameObject.tag == "Ground")
         {
-            Debug.Log(playerObjectPool);
 
-            
+            //myWaterAnimator.SetBool("HasCollided", true);
+           // myWaterSprite.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+
             gameObject.SetActive(false);           
 
         }

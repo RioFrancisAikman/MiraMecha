@@ -100,6 +100,8 @@ MonoBehaviour:
   speed: 0
   isRightSide: 0
   isLeftSide: 0
+  myWaterAnimator: {fileID: 7520384958316978109}
+  myWaterSprite: {fileID: 7520384958316978111}
 --- !u!61 &7520384958175365552
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -159,7 +161,7 @@ GameObject:
   - component: {fileID: 7520384958316978108}
   - component: {fileID: 7520384958316978109}
   m_Layer: 0
-  m_Name: bolt1
+  m_Name: bolt1Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

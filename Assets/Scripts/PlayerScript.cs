@@ -37,6 +37,8 @@ public class PlayerScript : MonoBehaviour
 
     public bool facingRight;
     public bool facingLeft;
+
+    private MovingPlatform movingPlatform;
     
 
     // Start is called before the first frame update
@@ -67,6 +69,8 @@ public class PlayerScript : MonoBehaviour
 
         playerObjectPool = FindObjectOfType<PlayerObjectPool>();
         playerObjectPoolLeft = FindObjectOfType<PlayerObjectPoolLeft>();
+
+        movingPlatform = FindObjectOfType<MovingPlatform>();
     }
 
 
@@ -269,7 +273,8 @@ public class PlayerScript : MonoBehaviour
             myAnimator.SetBool("Attacked", false);
         }
 
-       
+        
+
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -293,5 +298,30 @@ public class PlayerScript : MonoBehaviour
        
     }
 
-    
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "MovingPlatform")
+        {
+            //Player moves along the platform
+            if (movingPlatform.moveTimer <= 3.0f)
+            {
+                //Platform moves right
+                transform.Translate(new Vector3(1 * Time.deltaTime, 0, 0));
+
+
+
+
+            }
+            else if (movingPlatform.moveTimer <= 6.0f)
+            {
+                //Platform moves left
+                transform.Translate(new Vector3(-1 * Time.deltaTime, 0, 0));
+
+
+            }
+
+        }
+    }
+
+
 }

@@ -6,12 +6,14 @@ public class CoinMegaScript : MonoBehaviour
 {
     public float ascendTimer;
     private EnemyScript enemyScript;
+   
 
     // Start is called before the first frame update
     void Start()
     {
-       
+      
         enemyScript = FindObjectOfType<EnemyScript>();
+
     }
 
     // Update is called once per frame
@@ -32,12 +34,14 @@ public class CoinMegaScript : MonoBehaviour
        
     }
 
+  
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Ground")
         {
             // Bounce decreases
-          
+           
         }
     }
 }

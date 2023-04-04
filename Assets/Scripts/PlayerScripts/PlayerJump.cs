@@ -7,10 +7,15 @@ public class PlayerJump : MonoBehaviour
     Rigidbody2D rb;
     public Vector3 boxSize;
     public float maxDistance;
-    public float jumpforce = 0.5f;
+
+    public float jumpForce;
+    public float doubleJumpForce;
+
     public bool isOnGround;
+     private bool doubleJump;
     public Animator myAnimator;
-    private bool doubleJump;
+   
+
 
    // public float jumpTimer;
 
@@ -22,19 +27,28 @@ public class PlayerJump : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         isOnGround = true;
-        
-        
+
+        jumpForce = 250f;
+        doubleJumpForce = 275f;
 
         if (isOnGround == true)
         {
-          // myAnimator.SetBool("Jumping", false);
+            myAnimator.SetBool("Jumping", false);
         }
         else if (isOnGround == false)
         {
-            jumpforce = 0f;
-          //  myAnimator.SetBool("Jumping", true);
+            myAnimator.SetBool("Jumping", true);
         }
 
+        if (doubleJump == false)
+        {
+            myAnimator.SetBool("Jumping", false);
+        }
+        else if (doubleJump == true)
+        {
+            myAnimator.SetBool("Jumping", true);
+        }
+        
     }
 
     // Update is called once per frame
@@ -45,25 +59,30 @@ public class PlayerJump : MonoBehaviour
 
         if (isOnGround == true)
         {
+            myAnimator.SetBool("Jumping", false);
             if (Input.GetKeyDown(KeyCode.Space))
             {
 
-                
-               // myAnimator.SetBool("Jumping", true);
-                rb.AddForce(transform.up * jumpforce * 9f, (ForceMode2D)ForceMode.Impulse);
-                /*
-                if (doubleJump == true)
-                {
-                    rb.AddForce(transform.up * jumpforce * 18f, ForceMode.Impulse);
-                    doubleJump = false;
-                }
-                */
+
+                 myAnimator.SetBool("Jumping", true);
+                rb.AddForce(new Vector2(0f, jumpForce));
+
+
                 isOnGround = false;
+                doubleJump = true;
             }
-            else
+           
+
+            
+        }
+        else
+        {
+            
+            if (doubleJump && Input.GetKeyDown(KeyCode.Space))
             {
-               
-               // myAnimator.SetBool("Jumping", false);
+                myAnimator.SetBool("Jumping", true);
+                rb.AddForce(new Vector2(0f, doubleJumpForce));
+                doubleJump = false;
             }
         }
         /*
@@ -74,30 +93,32 @@ public class PlayerJump : MonoBehaviour
         }
       */
 
-       
+
 
     }
 
     
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
             isOnGround = true;
+            doubleJump = false;
 
         }
 
         if (collision.gameObject.tag == "MovingPlatform")
         {
             isOnGround = true;
+            doubleJump = false;
 
         }
 
         if (collision.gameObject.tag == "FallingPlatform")
         {
             isOnGround = true;
-
+            doubleJump = false;
         }
     }
 }

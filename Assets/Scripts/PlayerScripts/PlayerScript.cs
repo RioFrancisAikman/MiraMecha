@@ -33,6 +33,8 @@ public class PlayerScript : MonoBehaviour
     public int currentwater;
     public WaterTankBar waterTankBar;
 
+    private PlayerJump playerJump;
+
     public KeyCode absorbKey = KeyCode.X;
 
     public bool facingRight;
@@ -74,6 +76,8 @@ public class PlayerScript : MonoBehaviour
 
         movingPlatform = FindObjectOfType<MovingPlatform>();
         fallingPlatform = FindObjectOfType<FallingPlatform>();
+
+        playerJump = FindObjectOfType<PlayerJump>();
     }
 
 
@@ -123,8 +127,9 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            //not moving to the right
+            //not moving
             myAnimator.SetBool("Running", false);
+            myAnimator.SetBool("Shooting", false);
         }
 
 
@@ -163,6 +168,12 @@ public class PlayerScript : MonoBehaviour
                         waterBall.transform.rotation = transform.rotation;
                         waterBall.SetActive(true);
 
+                        if (playerJump.isOnGround == false)
+                        {
+                            myAnimator.SetBool("Shooting", true);
+                        }
+                       
+
                     }
                    
                 }
@@ -196,6 +207,10 @@ public class PlayerScript : MonoBehaviour
                         waterBall.transform.rotation = transform.rotation;
                         waterBall.SetActive(true);
 
+                        if (playerJump.isOnGround == false)
+                        {
+                            myAnimator.SetBool("Shooting", true);
+                        }
                     }
 
                 }
@@ -207,7 +222,7 @@ public class PlayerScript : MonoBehaviour
             {
                 //water tank is empty
                 Debug.Log("No more water!");
-
+                myAnimator.SetBool("Shooting", true);
             }
 
        

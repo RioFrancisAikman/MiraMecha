@@ -53,12 +53,12 @@ public class WaterBallScript : MonoBehaviour
         Fire();
         spawnTimer += Time.deltaTime;
 
-        if (spawnTimer >= 1)
+        if (spawnTimer >= 2)
         {
             gameObject.SetActive(false);
             spawnTimer = 0;
         }
-        else if (spawnTimer <= 0.9f)
+        else if (spawnTimer <= 1.9f)
         {
             gameObject.SetActive(true);
         }
@@ -74,25 +74,32 @@ public class WaterBallScript : MonoBehaviour
 
         if (collision.gameObject.tag == "Enemy")
         {
-           // myWaterAnimator.SetBool("HasCollided", true);
-          //  myWaterSprite.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        
             gameObject.SetActive(false);
 
 
         }
         else if (collision.gameObject.tag == "EnemyBullet")
         {
-          //  myWaterAnimator.SetBool("HasCollided", true);
-           // myWaterSprite.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+     
             gameObject.SetActive(false);
         }
         else if (collision.gameObject.tag == "Ground")
         {
 
-            //myWaterAnimator.SetBool("HasCollided", true);
-           // myWaterSprite.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-
             gameObject.SetActive(false);           
+
+        }
+        else if (collision.gameObject.tag == "MovingPlatform")
+        {
+
+            gameObject.SetActive(false);
+
+        }
+        else if (collision.gameObject.tag == "FallingPlatform")
+        {
+
+            gameObject.SetActive(false);
 
         }
         else

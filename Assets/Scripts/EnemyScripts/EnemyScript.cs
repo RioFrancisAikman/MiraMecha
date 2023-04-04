@@ -43,6 +43,9 @@ public class EnemyScript : MonoBehaviour
     private EnemyObjectPool enemyObjectPool;
     private EnemyObjectPoolLeft enemyObjectPoolLeft;
 
+    public Transform enrgySpawnPoint;
+    public GameObject myEnergyObjectToSpawn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,6 +75,10 @@ public class EnemyScript : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+
+           
+
+            GameObject Enemy = Instantiate(myEnergyObjectToSpawn, enrgySpawnPoint.position, Quaternion.identity) as GameObject;
         }
 
 

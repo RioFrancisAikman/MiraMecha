@@ -39,7 +39,9 @@ public class PlayerScript : MonoBehaviour
     public bool facingLeft;
 
     private MovingPlatform movingPlatform;
-    
+    private FallingPlatform fallingPlatform;
+
+    public int coinsCollected = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -71,6 +73,7 @@ public class PlayerScript : MonoBehaviour
         playerObjectPoolLeft = FindObjectOfType<PlayerObjectPoolLeft>();
 
         movingPlatform = FindObjectOfType<MovingPlatform>();
+        fallingPlatform = FindObjectOfType<FallingPlatform>();
     }
 
 
@@ -214,7 +217,12 @@ public class PlayerScript : MonoBehaviour
         
     }
 
-   
+    public void CollectedCoin(int numberOfCoinsCollectedInThisAction)
+    {
+        coinsCollected += numberOfCoinsCollectedInThisAction;
+        
+
+    }
 
 
     void LoseWater(int loseWater)
@@ -226,6 +234,7 @@ public class PlayerScript : MonoBehaviour
     {
         currenthealth -= damage;
     }
+
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -319,6 +328,22 @@ public class PlayerScript : MonoBehaviour
 
 
             }
+
+        }
+
+        if (collision.gameObject.tag == "FallingPlatform")
+        {
+            //Player moves along the platform
+            
+            
+                //Platform moves down
+                transform.Translate(new Vector3(0, -1 * Time.deltaTime * fallingPlatform.fallSpeed, 0));
+
+
+
+
+            
+           
 
         }
     }

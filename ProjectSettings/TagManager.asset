@@ -10,6 +10,8 @@ TagManager:
   - Enemy
   - EnemyBullet
   - WaterTank
+  - MovingPlatform
+  - FallingPlatform
   layers:
   - Default
   - TransparentFX

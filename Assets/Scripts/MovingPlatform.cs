@@ -17,7 +17,7 @@ public class MovingPlatform : MonoBehaviour
     {
         moveTimer += Time.deltaTime;
 
-        if (moveTimer <= 3.0f)
+        if (moveTimer <= 4.0f)
         {
             //Platform moves right
             transform.Translate(new Vector3(1 * Time.deltaTime, 0, 0));
@@ -26,14 +26,14 @@ public class MovingPlatform : MonoBehaviour
 
 
         }
-        else if (moveTimer <= 6.0f)
+        else if (moveTimer <= 8.0f)
         {
             //Platform moves left
             transform.Translate(new Vector3(-1 * Time.deltaTime, 0, 0));
 
 
         }
-        else if (moveTimer >= 6.0f)
+        else if (moveTimer >= 8.0f)
         {
             // resets timer
             moveTimer = 0;

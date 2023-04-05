@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class WaterTankBar : MonoBehaviour
 {
     public Slider slider;
+    public Image emptyImage;
 
     public void SetMaxWater( int water)
     {
@@ -15,5 +16,19 @@ public class WaterTankBar : MonoBehaviour
     public void SetWater(int water)
     {
         slider.value = water;
+    }
+
+    public void SetEmptyTank(bool isEmpty)
+    {
+
+        if (isEmpty)
+        {
+            emptyImage.enabled = true;
+        }
+        else
+        {
+            emptyImage.enabled = false;
+        }
+        
     }
 }

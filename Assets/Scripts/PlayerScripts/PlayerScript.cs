@@ -33,6 +33,9 @@ public class PlayerScript : MonoBehaviour
     public int currentwater;
     public WaterTankBar waterTankBar;
 
+    //public WaterTankBar emptyTank;
+    public bool outOfWater;
+
     private PlayerJump playerJump;
 
     public KeyCode absorbKey = KeyCode.X;
@@ -63,6 +66,9 @@ public class PlayerScript : MonoBehaviour
 
         waterTankBar.SetMaxWater(maxwater);
 
+        waterTankBar.SetEmptyTank(outOfWater);
+        outOfWater = false;
+
         waterShotTimer = 0.75f;
         waterBallTimer = 0.0f;
 
@@ -90,6 +96,17 @@ public class PlayerScript : MonoBehaviour
         waterShotTimer += Time.deltaTime;
 
 
+        
+        if (currentwater >= 1)
+        {
+            waterTankBar.SetEmptyTank(outOfWater);
+            outOfWater = false;
+        }
+        else if(currentwater <= 0)
+        {
+            waterTankBar.SetEmptyTank(outOfWater);
+            outOfWater = true;
+        }
         
 
 
@@ -167,6 +184,7 @@ public class PlayerScript : MonoBehaviour
                         waterBall.transform.position = transform.position + transform.right * 0.75f;
                         waterBall.transform.rotation = transform.rotation;
                         waterBall.SetActive(true);
+                        outOfWater = false;
 
                         if (playerJump.isOnGround == false)
                         {
@@ -221,6 +239,8 @@ public class PlayerScript : MonoBehaviour
             else
             {
                 //water tank is empty
+                outOfWater = true;
+                waterTankBar.SetEmptyTank(outOfWater);
                 Debug.Log("No more water!");
                 myAnimator.SetBool("Shooting", true);
             }

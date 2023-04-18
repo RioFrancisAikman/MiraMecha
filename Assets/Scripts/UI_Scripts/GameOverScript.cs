@@ -8,7 +8,12 @@ public class GameOverScript : MonoBehaviour
     public Image gameOverScreen;
     public Text gameOverMessage;
     public Button restart;
-    
+
+
+    public void Start()
+    {
+        restart.gameObject.SetActive(false);
+    }
 
     public void SetEndScreen(bool isGameOver)
     {
@@ -17,12 +22,14 @@ public class GameOverScript : MonoBehaviour
         {
             gameOverScreen.enabled = true;
             gameOverMessage.enabled = true;
+            restart.gameObject.SetActive(true);
             restart.enabled = true;
         }
         else
         {
             gameOverScreen.enabled = false;
             gameOverMessage.enabled = false;
+            restart.gameObject.SetActive(false);
             restart.enabled = false;
         }
 

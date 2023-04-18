@@ -380,6 +380,8 @@ public class PlayerScript : MonoBehaviour
        
     }
 
+   
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "MovingPlatform")

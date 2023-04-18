@@ -124,7 +124,7 @@ public class PlayerScript : MonoBehaviour
        else if (currenthealth <= 0)
        {
             gameOverScript.SetEndScreen(gameOverNow);
-            gameOverNow = false;
+            gameOverNow = true;
        }
 
         //Player Movement Code
@@ -307,10 +307,9 @@ public class PlayerScript : MonoBehaviour
                 //Game ends
                 Debug.Log("Game Over!");
                 myAnimator.SetBool("Attacked", true);
-                Time.timeScale = 0;
+              //  Time.timeScale = 0;
 
-                gameOverScript.SetEndScreen(gameOverNow);
-                gameOverNow = true;
+               
             }
         }
         else
@@ -335,8 +334,7 @@ public class PlayerScript : MonoBehaviour
                 myAnimator.SetBool("Attacked", true);
                 Time.timeScale = 0;
 
-                gameOverScript.SetEndScreen(gameOverNow);
-                gameOverNow = true;
+                
             }
         }
         else
@@ -377,8 +375,7 @@ public class PlayerScript : MonoBehaviour
             myAnimator.SetBool("Attacked", true);
             Time.timeScale = 0;
 
-            gameOverScript.SetEndScreen(gameOverNow);
-            gameOverNow = true;
+           
         }
        
     }

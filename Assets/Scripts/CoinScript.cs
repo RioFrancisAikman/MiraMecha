@@ -24,7 +24,7 @@ public class CoinScript : MonoBehaviour
         {
             Debug.Log("Coin collected");
 
-            Destroy(gameObject, 0.1f);
+            Destroy(gameObject);
             CoinCounter.instance.IncreaseCoins(value);
 
             //added coin to player

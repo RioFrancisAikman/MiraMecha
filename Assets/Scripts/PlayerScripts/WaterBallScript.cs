@@ -102,9 +102,11 @@ public class WaterBallScript : MonoBehaviour
             gameObject.SetActive(false);
 
         }
-        else
+        else if (collision.gameObject.tag == "Goal")
         {
-            
+
+            gameObject.SetActive(false);
+
         }
     }
 }

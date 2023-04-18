@@ -285,7 +285,7 @@ public class PlayerScript : MonoBehaviour
 
             
 
-            if (maxhealth <= 0)
+            if (currenthealth <= 0)
             {
                 //Game ends
                 Debug.Log("Game Over!");
@@ -306,7 +306,7 @@ public class PlayerScript : MonoBehaviour
 
             Debug.Log("Ouch!");
 
-            if (maxhealth <= 0)
+            if (currenthealth <= 0)
             {
                 //Game ends
                 Debug.Log("Game Over!");
@@ -317,6 +317,7 @@ public class PlayerScript : MonoBehaviour
             myAnimator.SetBool("Attacked", false);
         }
 
+        
         
 
     }
@@ -339,6 +340,14 @@ public class PlayerScript : MonoBehaviour
 
 
             }
+
+        if (other.gameObject.tag == "EndlessPit")
+        {
+            TakeDamage(14);
+            healthBar.SetHealth(currenthealth);
+           // Destroy(gameObject);
+            Debug.Log("GameOver");
+        }
        
     }
 

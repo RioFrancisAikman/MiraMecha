@@ -12,6 +12,8 @@ TagManager:
   - WaterTank
   - MovingPlatform
   - FallingPlatform
+  - Goal
+  - EndlessPit
   layers:
   - Default
   - TransparentFX

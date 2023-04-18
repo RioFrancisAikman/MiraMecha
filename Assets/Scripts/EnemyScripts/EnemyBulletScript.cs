@@ -80,5 +80,12 @@ public class EnemyBulletScript : MonoBehaviour
             gameObject.SetActive(false);
 
         }
+
+        if (collision.gameObject.tag == "Goal")
+        {
+
+            gameObject.SetActive(false);
+
+        }
     }
 }

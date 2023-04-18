@@ -28,8 +28,8 @@ public class PlayerJump : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         isOnGround = true;
 
-        jumpForce = 250f;
-        doubleJumpForce = 275f;
+        jumpForce = 230f;
+        doubleJumpForce = 245f;
 
         if (isOnGround == true)
         {

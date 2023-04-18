@@ -23,6 +23,9 @@ public class PlayerScript : MonoBehaviour
     private PlayerObjectPool playerObjectPool;
     private PlayerObjectPoolLeft playerObjectPoolLeft;
 
+    public bool gameOverNow;
+    public GameOverScript gameOverScript;
+
     PlayerScript myPlayer_script;
 
     public Animator myAnimator;
@@ -84,6 +87,11 @@ public class PlayerScript : MonoBehaviour
         fallingPlatform = FindObjectOfType<FallingPlatform>();
 
         playerJump = FindObjectOfType<PlayerJump>();
+
+        gameOverScript.SetEndScreen(gameOverNow);
+        gameOverNow = false;
+
+       
     }
 
 
@@ -108,7 +116,16 @@ public class PlayerScript : MonoBehaviour
             outOfWater = true;
         }
         
-
+       if (currenthealth > 0)
+       {
+            gameOverScript.SetEndScreen(gameOverNow);
+            gameOverNow = false;
+       }
+       else if (currenthealth <= 0)
+       {
+            gameOverScript.SetEndScreen(gameOverNow);
+            gameOverNow = false;
+       }
 
         //Player Movement Code
         //read the input of the horizontal and vertical, store them in a variable
@@ -289,6 +306,11 @@ public class PlayerScript : MonoBehaviour
             {
                 //Game ends
                 Debug.Log("Game Over!");
+                myAnimator.SetBool("Attacked", true);
+                Time.timeScale = 0;
+
+                gameOverScript.SetEndScreen(gameOverNow);
+                gameOverNow = true;
             }
         }
         else
@@ -310,6 +332,11 @@ public class PlayerScript : MonoBehaviour
             {
                 //Game ends
                 Debug.Log("Game Over!");
+                myAnimator.SetBool("Attacked", true);
+                Time.timeScale = 0;
+
+                gameOverScript.SetEndScreen(gameOverNow);
+                gameOverNow = true;
             }
         }
         else
@@ -347,6 +374,11 @@ public class PlayerScript : MonoBehaviour
             healthBar.SetHealth(currenthealth);
            // Destroy(gameObject);
             Debug.Log("GameOver");
+            myAnimator.SetBool("Attacked", true);
+            Time.timeScale = 0;
+
+            gameOverScript.SetEndScreen(gameOverNow);
+            gameOverNow = true;
         }
        
     }

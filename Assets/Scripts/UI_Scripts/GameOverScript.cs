@@ -5,13 +5,26 @@ using UnityEngine.UI;
 
 public class GameOverScript : MonoBehaviour
 {
-    /*
-    public Text pointsText;
+    public Image gameOverScreen;
+    public Text gameOverMessage;
+    public Button restart;
+    
 
-    public void Setup (int score)
+    public void SetEndScreen(bool isGameOver)
     {
-        gameObject.SetActive (true);
-        pointsText.text = score.ToString () + " Points";
+
+        if (isGameOver)
+        {
+            gameOverScreen.enabled = true;
+            gameOverMessage.enabled = true;
+            restart.enabled = true;
+        }
+        else
+        {
+            gameOverScreen.enabled = false;
+            gameOverMessage.enabled = false;
+            restart.enabled = false;
+        }
+
     }
-    */
 }

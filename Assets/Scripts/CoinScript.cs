@@ -26,6 +26,7 @@ public class CoinScript : MonoBehaviour
 
             Destroy(gameObject);
             CoinCounter.instance.IncreaseCoins(value);
+            ScoreScript.instance.IncreaseCoins(value);
 
             //added coin to player
             if (value == 1)

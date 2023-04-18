@@ -26,6 +26,9 @@ public class PlayerScript : MonoBehaviour
     public bool gameOverNow;
     public GameOverScript gameOverScript;
 
+    public bool gameCompleteNow;
+    public GameCompleteScript gameCompleteScript;
+
     PlayerScript myPlayer_script;
 
     public Animator myAnimator;
@@ -35,6 +38,7 @@ public class PlayerScript : MonoBehaviour
     private int maxwater;
     public int currentwater;
     public WaterTankBar waterTankBar;
+    public int waterTanksUsed;
 
     //public WaterTankBar emptyTank;
     public bool outOfWater;
@@ -50,6 +54,7 @@ public class PlayerScript : MonoBehaviour
     private FallingPlatform fallingPlatform;
 
     public int coinsCollected = 0;
+    public int value;
 
     // Start is called before the first frame update
     void Start()
@@ -64,7 +69,9 @@ public class PlayerScript : MonoBehaviour
 
         damage = 1.0f;
 
+        value = currentwater;
        
+
         maxwater = 12;
 
         waterTankBar.SetMaxWater(maxwater);
@@ -91,7 +98,8 @@ public class PlayerScript : MonoBehaviour
         gameOverScript.SetEndScreen(gameOverNow);
         gameOverNow = false;
 
-       
+        gameCompleteScript.SetEndScreen(gameCompleteNow);
+        gameCompleteNow = false;
     }
 
 
@@ -126,6 +134,13 @@ public class PlayerScript : MonoBehaviour
             gameOverScript.SetEndScreen(gameOverNow);
             gameOverNow = true;
        }
+
+       if (gameCompleteNow == true)
+       {
+            gameCompleteScript.SetEndScreen(gameCompleteNow);
+       }
+
+        
 
         //Player Movement Code
         //read the input of the horizontal and vertical, store them in a variable
@@ -207,7 +222,9 @@ public class PlayerScript : MonoBehaviour
                         {
                             myAnimator.SetBool("Shooting", true);
                         }
-                       
+
+                        ScoreScript.instance.IncreaseCoins(value);
+
 
                     }
                    
@@ -246,6 +263,8 @@ public class PlayerScript : MonoBehaviour
                         {
                             myAnimator.SetBool("Shooting", true);
                         }
+
+                        ScoreScript.instance.IncreaseCoins(value);
                     }
 
                 }
@@ -307,7 +326,7 @@ public class PlayerScript : MonoBehaviour
                 //Game ends
                 Debug.Log("Game Over!");
                 myAnimator.SetBool("Attacked", true);
-              //  Time.timeScale = 0;
+                Time.timeScale = 0;
 
                
             }
@@ -359,9 +378,11 @@ public class PlayerScript : MonoBehaviour
                     currentwater = 12;
                     Debug.Log("Water tank filled up");
                     Destroy(other.gameObject);
-
-                waterTankBar.SetWater(currentwater);
-                }
+                    waterTanksUsed += 1;
+                    waterTankBar.SetWater(currentwater);
+                    // Every water tank used lowers score by 2;
+                    ScoreScript.instance.IncreaseCoins(-waterTanksUsed * 2);
+            }
 
 
             }
@@ -376,6 +397,15 @@ public class PlayerScript : MonoBehaviour
             Time.timeScale = 0;
 
            
+        }
+
+        if (other.gameObject.tag == "PlayerWins")
+        {
+            gameCompleteScript.SetEndScreen(gameCompleteNow);
+            gameCompleteNow = true;
+            Time.timeScale = 0;
+            ScoreScript.instance.IncreaseCoins(currentwater);
+            ScoreScript.instance.IncreaseCoins(currenthealth);
         }
        
     }

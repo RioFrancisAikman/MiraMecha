@@ -38,7 +38,7 @@ public class PlayerScript : MonoBehaviour
     private int maxwater;
     public int currentwater;
     public WaterTankBar waterTankBar;
-    public int waterTanksUsed;
+   
 
     //public WaterTankBar emptyTank;
     public bool outOfWater;
@@ -61,7 +61,7 @@ public class PlayerScript : MonoBehaviour
     {
         speed = 3.0f;
 
-        maxhealth = 14;
+        maxhealth = 16;
 
         healthBar.SetMaxHealth(maxhealth);
 
@@ -376,12 +376,35 @@ public class PlayerScript : MonoBehaviour
                 if (Input.GetKeyDown(absorbKey))
                 {
                     currentwater = 12;
+
+                if (currenthealth == 15)
+                {
+                    currenthealth += 1;
+                }
+                else if (currenthealth == 14)
+                {
+                    currenthealth += 2;
+                }
+                else if (currenthealth == 13)
+                {
+                    currenthealth += 3;
+                }
+                else if (currenthealth == 16)
+                {
+                    currenthealth += 0;
+                }
+                else
+                {
+                    currenthealth += 4;
+                }
+                    
                     Debug.Log("Water tank filled up");
                     Destroy(other.gameObject);
-                    waterTanksUsed += 1;
+                   
                     waterTankBar.SetWater(currentwater);
-                    // Every water tank used lowers score by 2;
-                    ScoreScript.instance.IncreaseCoins(-waterTanksUsed * 2);
+                    healthBar.SetHealth(currenthealth);
+                   // Every water tank increases health by 25%
+
             }
 
 

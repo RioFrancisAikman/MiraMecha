@@ -59,6 +59,8 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
+
         speed = 3.0f;
 
         maxhealth = 16;
@@ -69,10 +71,7 @@ public class PlayerScript : MonoBehaviour
 
         damage = 1.0f;
 
-        value = currentwater;
-       
-
-        maxwater = 12;
+        maxwater = 14;
 
         waterTankBar.SetMaxWater(maxwater);
 
@@ -109,10 +108,11 @@ public class PlayerScript : MonoBehaviour
         speed = 3.0f;
 
 
-        waterShotTimer += Time.deltaTime;
-
-
         
+
+        PlayerControls();
+        PlayerAttack();
+
         if (currentwater >= 1)
         {
             waterTankBar.SetEmptyTank(outOfWater);
@@ -140,14 +140,20 @@ public class PlayerScript : MonoBehaviour
             gameCompleteScript.SetEndScreen(gameCompleteNow);
        }
 
-        
+
+
+
+}
+
+    void PlayerControls()
+    {
 
         //Player Movement Code
-        //read the input of the horizontal and vertical, store them in a variable
+        //read the input of the horizontal and store in a variable
         float horizontalInput = Input.GetAxis("Horizontal");
-        
 
-        //Debug.Log("The vertical is " + verticalInput + " and the horizontal is " + horizontalInput);
+
+        //Debug.Log("The horizontal is " + horizontalInput);
         Vector3 inputFromPlayer = new Vector3(horizontalInput, 0, 0);
 
         //move the player based on the values
@@ -172,7 +178,7 @@ public class PlayerScript : MonoBehaviour
 
             facingLeft = true;
             facingRight = false;
-           
+
         }
         else
         {
@@ -183,29 +189,26 @@ public class PlayerScript : MonoBehaviour
 
 
 
+    }
 
-
+    void PlayerAttack()
+    {
         waterBallTimer += Time.deltaTime;
-
-        /* if (waterBallTimer >= 2)
-         {
-
-             waterBallTimer = 0;
-         }
-        */
-        
+        waterShotTimer += Time.deltaTime;
         if (Input.GetButtonDown("WaterShot"))
         {
             if (currentwater >= 1.0)
             {
-                
+
                 if (facingRight == true)
                 {
-                   
+
 
                     if (waterShotTimer >= 0.75f)
                     {
-                       
+                        //Player attacks
+
+                        //Lowers amount of water
                         LoseWater(1);
 
                         waterShotTimer = 0;
@@ -227,24 +230,16 @@ public class PlayerScript : MonoBehaviour
 
 
                     }
-                   
+
                 }
                 else if (facingLeft == true)
                 {
-                   
+
 
                     if (waterShotTimer >= 0.75f)
                     {
                         //Player attacks
-                        /*
-                        Debug.Log("You shot water");
-                        GameObject WaterBall = Instantiate(myWater2ObjectToSpawn, shootingLeftSpawnPoint.position, Quaternion.identity) as GameObject;
-                        Rigidbody2D r = WaterBall.GetComponent<Rigidbody2D>();
 
-
-                        //  Debug.Break();
-                        r.AddRelativeForce(Vector2.left * 25);
-                        */
                         //Lowers amount of water
                         LoseWater(1);
 
@@ -268,7 +263,7 @@ public class PlayerScript : MonoBehaviour
                     }
 
                 }
-       
+
 
 
             }
@@ -281,11 +276,11 @@ public class PlayerScript : MonoBehaviour
                 myAnimator.SetBool("Shooting", true);
             }
 
-       
 
-           
+
+
         }
-        
+
     }
 
     public void CollectedCoin(int numberOfCoinsCollectedInThisAction)
@@ -375,7 +370,7 @@ public class PlayerScript : MonoBehaviour
                 
                 if (Input.GetKeyDown(absorbKey))
                 {
-                    currentwater = 12;
+                    currentwater = 14;
 
                 if (currenthealth == 15)
                 {
@@ -405,14 +400,14 @@ public class PlayerScript : MonoBehaviour
                     healthBar.SetHealth(currenthealth);
                    // Every water tank increases health by 25%
 
-            }
+                }
 
 
             }
 
         if (other.gameObject.tag == "EndlessPit")
         {
-            TakeDamage(14);
+            TakeDamage(16);
             healthBar.SetHealth(currenthealth);
            // Destroy(gameObject);
             Debug.Log("GameOver");

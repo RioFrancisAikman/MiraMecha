@@ -54,7 +54,7 @@ public class PlayerScript : MonoBehaviour
     private FallingPlatform fallingPlatform;
 
     public int coinsCollected = 0;
-    public int value;
+ 
 
     // Start is called before the first frame update
     void Start()
@@ -226,7 +226,7 @@ public class PlayerScript : MonoBehaviour
                             myAnimator.SetBool("Shooting", true);
                         }
 
-                        ScoreScript.instance.IncreaseCoins(value);
+                       
 
 
                     }
@@ -259,7 +259,7 @@ public class PlayerScript : MonoBehaviour
                             myAnimator.SetBool("Shooting", true);
                         }
 
-                        ScoreScript.instance.IncreaseCoins(value);
+                       
                     }
 
                 }
